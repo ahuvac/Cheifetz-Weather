@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cheifetz.openweathermap.OpenWeatherMapController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <ImageView fx:id="iconToday" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+    <Label fx:id="tempToday" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+    <Label fx:id = "day1" GridPane.rowIndex="1" GridPane.columnIndex="0"/>  <Label fx:id = "temp1" GridPane.rowIndex="2" GridPane.columnIndex="1"/>   <Label fx:id = "icon1" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+    <Label fx:id = "day2" GridPane.rowIndex="1" GridPane.columnIndex="0"/>  <Label fx:id = "temp2" GridPane.rowIndex="2" GridPane.columnIndex="1"/>   <Label fx:id = "icon2" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+    <Label fx:id = "day3" GridPane.rowIndex="1" GridPane.columnIndex="0"/>  <Label fx:id = "temp3" GridPane.rowIndex="2" GridPane.columnIndex="1"/>   <Label fx:id = "icon3" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+    <Label fx:id = "day4" GridPane.rowIndex="1" GridPane.columnIndex="0"/>  <Label fx:id = "temp4" GridPane.rowIndex="2" GridPane.columnIndex="1"/>   <Label fx:id = "icon4" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+    <Label fx:id = "day5" GridPane.rowIndex="1" GridPane.columnIndex="0"/>  <Label fx:id = "temp5" GridPane.rowIndex="2" GridPane.columnIndex="1"/>   <Label fx:id = "icon5" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+
+        <fx:define>
+            <ArrayList fx:id="dayLabels" >
+                <fx:reference source="day1"/>
+                <fx:reference source="day2"/>
+                <fx:reference source="day3"/>
+                <fx:reference source="day4"/>
+                <fx:reference source="day5"/>
+            </ArrayList>
+            <ArrayList fx:id="tempLabels" >
+                <fx:reference source="temp1"/>
+                <fx:reference source="temp2"/>
+                <fx:reference source="temp3"/>
+                <fx:reference source="temp4"/>
+                <fx:reference source="temp5"/>
+            </ArrayList>
+            <ArrayList fx:id="iconLabels" >
+                <fx:reference source="icon1"/>
+                <fx:reference source="icon2"/>
+                <fx:reference source="icon3"/>
+                <fx:reference source="icon4"/>
+                <fx:reference source="icon5"/>
+            </ArrayList>
+        </fx:define>
+
+
+    <TextField fx:id="location" GridPane.rowIndex="7" GridPane.columnIndex="3"/>
+    <TextField text="Fahrenheit" fx:id="degree" GridPane.rowIndex="8" onAction="#initialize" GridPane.columnIndex="3"/>
+
+</AnchorPane>
