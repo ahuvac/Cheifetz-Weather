@@ -23,8 +23,8 @@ public class OpenWeatherMapController {
     @FXML
     List<ImageView> iconLabels;
 
-//    @FXML
-//    TextField location;
+    @FXML
+    TextField loc;
     @FXML
     RadioButton cel;
     @FXML
@@ -43,12 +43,12 @@ public class OpenWeatherMapController {
 
     public void doService() {
         String units = far.isSelected() ? "imperial" : "metric";
-        //String loc = location.getText()+"";
-        String loc = "Baltimore";
+        String location = loc.getText()+"";
+
         OpenWeatherMapServiceFactory factory = new OpenWeatherMapServiceFactory();
         OpenWeatherMapService service = factory.newInstance();
 
-        Disposable disposable = service.getWeatherForecast(loc, units)
+        Disposable disposable = service.getWeatherForecast(location, units)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.trampoline())
                 .subscribe(this::onOpenWeathermapForecast, this::onError);

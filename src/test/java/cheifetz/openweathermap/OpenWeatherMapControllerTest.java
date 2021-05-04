@@ -8,8 +8,6 @@ import javafx.scene.image.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import java.util.*;
-
-
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -18,8 +16,6 @@ public class OpenWeatherMapControllerTest {
     private List<Label> dayLabels;
     private List<Label> tempLabels;
     private List<ImageView> iconLabels;
-    private TextField location;
-
     private OpenWeatherMapController controller;
 
     @BeforeClass
@@ -36,6 +32,7 @@ public class OpenWeatherMapControllerTest {
         controller.initialize();
         // then
         verify(controller.far).setSelected(true);
+        verify(controller.loc).getText();
     }
 
     @Test
@@ -103,7 +100,7 @@ public class OpenWeatherMapControllerTest {
         dayLabels = mock(List.class);
         tempLabels = mock(List.class);
         iconLabels = mock(List.class);
-        location = mock(TextField.class);
+        controller.loc = mock(TextField.class);
         controller.far = mock(RadioButton.class);
         controller.cel = mock(RadioButton.class);
 
@@ -128,5 +125,4 @@ public class OpenWeatherMapControllerTest {
         );
         controller.iconLabels = iconLabels;
     }
-
 }
