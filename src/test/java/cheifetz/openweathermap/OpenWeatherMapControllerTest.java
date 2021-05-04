@@ -1,65 +1,112 @@
 package cheifetz.openweathermap;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.ImageView;
-import org.junit.Before;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import javafx.event.ActionEvent;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import java.util.*;
 
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class OpenWeatherMapControllerTest {
-    private Label today;
-    private ImageView iconToday;
-    private Label temoToday;
+
     private List<Label> dayLabels;
     private List<Label> tempLabels;
-    private List<javafx.scene.image.ImageView> iconLabels;
+    private List<ImageView> iconLabels;
     private TextField location;
-    private RadioButton cel;
-    private RadioButton far;
 
     private OpenWeatherMapController controller;
 
+    @BeforeClass
+    public static void beforeClass() {
+        com.sun.javafx.application.PlatformImpl.startup(() -> {
+        });
+    }
 
     @Test
     public void initialize() {
         // given
         givenOpenWeatherMapController();
-        //doReturn();
-
         // when
         controller.initialize();
-
         // then
-//        verify(controller.letterLabels.get(0)).setText("T");
-//        verify(controller.letterLabels.get(1)).setText("G");
-//        verify(controller.letterLabels.get(2)).setText("L");
-//        verify(letterBag, times(3)).nextLetter();
+        verify(controller.far).setSelected(true);
+    }
+
+    @Test
+    public void setTexts() {
+        //given
+        Date date = java.util.Calendar.getInstance().getTime();
+
+        givenOpenWeatherMapController();
+
+        OpenWeathermapForecast forecast = mock(OpenWeathermapForecast.class);
+        OpenWeathermapForecast.HourlyForecast hourlyForecast = mock(OpenWeathermapForecast.HourlyForecast.class);
+        OpenWeathermapForecast.HourlyForecast.Main main = mock(OpenWeathermapForecast.HourlyForecast.Main.class);
+        List<OpenWeathermapForecast.HourlyForecast.Weather> weather = Arrays.asList(
+                mock(OpenWeathermapForecast.HourlyForecast.Weather.class),
+                mock(OpenWeathermapForecast.HourlyForecast.Weather.class),
+                mock(OpenWeathermapForecast.HourlyForecast.Weather.class));
+
+        hourlyForecast.main = main;
+        main.temp = 70.0;
+        hourlyForecast.weather = weather;
+
+        doReturn(hourlyForecast).when(forecast).getForcastFor(anyInt());
+        doReturn(date).when(hourlyForecast).getDate();
+        doReturn("http://openweathermap.org/img/wn/105@2x.png").
+                when(hourlyForecast.weather.get(0)).getIconUrl();
+
+        //when
+        controller.setTexts(forecast);
+
+        //then
+        for (int i = 0; i < controller.dayLabels.size(); i++) {
+            String fullDate = date + "";
+            verify(dayLabels.get(i), times(1)).setText(fullDate.substring(0, fullDate.indexOf(" ")));
+            verify(tempLabels.get(i), times(1)).setText("70" + (char) 186);
+            verify(iconLabels.get(i), times(1)).setImage(any(Image.class));
+        }
+    }
+
+    @Test
+    public void doService() {
+        //given
+        givenOpenWeatherMapController();
+        OpenWeatherMapServiceFactory factory = mock(OpenWeatherMapServiceFactory.class);
+        OpenWeatherMapService service = factory.newInstance();
+
+        //when
+        controller.doService();
+
+        //then
+        verify(controller.far).isSelected();
+    }
+
+    @Test
+    public void refresh() {
+        //given
+        controller = mock(OpenWeatherMapController.class);
+        //when
+        controller.refresh(mock(ActionEvent.class));
+        //then
+        verify(controller, never()).doService();
     }
 
     public void givenOpenWeatherMapController() {
-        today = mock(Label.class);
-        iconToday = mock(ImageView.class);
-        today = mock(Label.class);
-        iconToday = mock(ImageView.class);
-        temoToday = mock(Label.class);
+        controller = new OpenWeatherMapController();
         dayLabels = mock(List.class);
         tempLabels = mock(List.class);
         iconLabels = mock(List.class);
         location = mock(TextField.class);
-        cel = mock(RadioButton.class);
-        far= mock(RadioButton.class);
+        controller.far = mock(RadioButton.class);
+        controller.cel = mock(RadioButton.class);
 
-        controller = new OpenWeatherMapController();
         dayLabels = Arrays.asList(
                 mock(Label.class),
                 mock(Label.class),
@@ -80,21 +127,6 @@ public class OpenWeatherMapControllerTest {
                 mock(ImageView.class)
         );
         controller.iconLabels = iconLabels;
-
-        ToggleGroup group = mock(ToggleGroup.class);
-
     }
 
-    @Test
-    public void onOpenWeathermapForecast() {
-        
-    }
-
-    @Test
-    public void onError() {
-    }
-
-    @Test
-    public void changeUnits() {
-    }
 }

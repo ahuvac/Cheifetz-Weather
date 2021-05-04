@@ -5,27 +5,35 @@
 <?import java.util.ArrayList?>
 <?import javafx.scene.image.ImageView?>
 
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.Group?>
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           stylesheets="weatherApp.css"
           fx:controller="cheifetz.openweathermap.OpenWeatherMapController"
-          prefHeight="400.0" prefWidth="600.0"
-          alignment="CENTER">
+          prefWidth="250.0" prefHeight="575.0"
+          alignment="center" hgap="10" vgap="10">
+    <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+    </padding>
 
-    <Label fx:id="today" GridPane.rowIndex="0" GridPane.columnIndex="0" alignment="CENTER" GridPane.columnSpan="6"  styleClass="today"/>
-    <ImageView fx:id="iconToday" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="6" />
-    <Label fx:id="tempToday" GridPane.rowIndex="2" GridPane.columnIndex="0"   styleClass="today"/>
+
+        <Label fx:id="today" GridPane.rowIndex="0" GridPane.columnIndex="1"   styleClass="today" GridPane.columnSpan="4" />
+        <ImageView fx:id="iconToday" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
+        <Label fx:id="tempToday" GridPane.rowIndex="2" GridPane.columnIndex="1"   styleClass="today" GridPane.columnSpan="4" />
 
 
-    <Label fx:id = "day1" GridPane.rowIndex="4" GridPane.columnIndex="0" />  <Label fx:id = "temp1" GridPane.rowIndex="4" GridPane.columnIndex="4"  />   <ImageView fx:id = "icon1" GridPane.rowIndex="4" GridPane.columnIndex="8" GridPane.columnSpan="2"  />
-    <Label fx:id = "day2" GridPane.rowIndex="5" GridPane.columnIndex="0" />  <Label fx:id = "temp2" GridPane.rowIndex="5" GridPane.columnIndex="4"  />   <ImageView fx:id = "icon2" GridPane.rowIndex="5" GridPane.columnIndex="8" GridPane.columnSpan="2" />
-    <Label fx:id = "day3" GridPane.rowIndex="6" GridPane.columnIndex="0" />  <Label fx:id = "temp3" GridPane.rowIndex="6" GridPane.columnIndex="4" />   <ImageView fx:id = "icon3" GridPane.rowIndex="6" GridPane.columnIndex="8" GridPane.columnSpan="2"/>
-    <Label fx:id = "day4" GridPane.rowIndex="7" GridPane.columnIndex="0" />  <Label fx:id = "temp4" GridPane.rowIndex="7" GridPane.columnIndex="4"  />   <ImageView fx:id = "icon4" GridPane.rowIndex="7" GridPane.columnIndex="8" GridPane.columnSpan="2"/>
-    <Label fx:id = "day5" GridPane.rowIndex="8" GridPane.columnIndex="0" />  <Label fx:id = "temp5" GridPane.rowIndex="8" GridPane.columnIndex="4" />   <ImageView fx:id = "icon5" GridPane.rowIndex="8" GridPane.columnIndex="8" GridPane.columnSpan="2"/>
 
-    <TextField fx:id="location" GridPane.rowIndex="9"/>
-    <RadioButton fx:id="far" text="Fahrenheit"   GridPane.rowIndex="10"  GridPane.columnIndex="0"  onAction="#changeUnits" onTouchReleased="#changeUnits"/>
-    <RadioButton fx:id="cel" text="Celcius"   GridPane.rowIndex="11"  GridPane.columnIndex="0" onAction="#changeUnits" onTouchReleased="#changeUnits"/>
+    <Label fx:id = "day1" GridPane.rowIndex="4" GridPane.columnIndex="0" />  <Label fx:id = "temp1" GridPane.rowIndex="4" GridPane.columnIndex="1"  />  <ImageView fx:id = "icon1" GridPane.rowIndex="4" GridPane.columnIndex="2" />
+    <Label fx:id = "day2" GridPane.rowIndex="5" GridPane.columnIndex="0" />  <Label fx:id = "temp2" GridPane.rowIndex="5" GridPane.columnIndex="1"  />  <ImageView fx:id = "icon2" GridPane.rowIndex="5" GridPane.columnIndex="2" />
+    <Label fx:id = "day3" GridPane.rowIndex="6" GridPane.columnIndex="0" />  <Label fx:id = "temp3" GridPane.rowIndex="6" GridPane.columnIndex="1" />   <ImageView fx:id = "icon3" GridPane.rowIndex="6" GridPane.columnIndex="2" />
+    <Label fx:id = "day4" GridPane.rowIndex="7" GridPane.columnIndex="0" />  <Label fx:id = "temp4" GridPane.rowIndex="7" GridPane.columnIndex="1"  />  <ImageView fx:id = "icon4" GridPane.rowIndex="7" GridPane.columnIndex="2"/>
+    <Label fx:id = "day5" GridPane.rowIndex="8" GridPane.columnIndex="0" />  <Label fx:id = "temp5" GridPane.rowIndex="8" GridPane.columnIndex="1" />   <ImageView fx:id = "icon5" GridPane.rowIndex="8" GridPane.columnIndex="2" />
+
+    <RadioButton fx:id="far" text="Fahrenheit" GridPane.rowIndex="9" GridPane.columnIndex="0" onAction="#refresh" onTouchReleased="#refresh" GridPane.columnSpan="3"/>
+    <RadioButton fx:id="cel" text="Celcius" GridPane.rowIndex="10" GridPane.columnIndex="0" onAction="#refresh" onTouchReleased="#refresh" GridPane.columnSpan="3"/>
+    <TextField fx:id="location" text = "Baltimore" GridPane.rowIndex="11"  prefWidth="5" GridPane.columnSpan="3" onAction="#refresh" />
 
     <fx:define>
         <ArrayList fx:id="dayLabels" >

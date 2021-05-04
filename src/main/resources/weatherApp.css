@@ -1,20 +1,10 @@
-GridPane{
--fx-alignment:CENTER;
-}
-
 Label{
 -fx-alignment:CENTER;
-
-}
-
-ImageView{
-
 }
 
 .root{
 -fx-background-color: #E0FFFF;
 }
 .today{
--fx-font-size: 35pt
--fx-alignment:CENTER;}
-
+-fx-font-size: 30pt
+}
