@@ -10,11 +10,9 @@ public class OpenWeatherMapApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/weather_application.fxml"));
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/weather_application.fxml"));
-
-        Parent parent = loader.load();
-        Scene scene = new Scene(parent, 600, 800);
+        Scene scene = new Scene(root, 300, 700);
 
         stage.setTitle("Weather");
         stage.setScene(scene);
@@ -24,6 +22,5 @@ public class OpenWeatherMapApplication extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }
 

@@ -12,6 +12,7 @@ public class OpenWeatherMapServiceFactory {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
+
         OpenWeatherMapService service = retrofit.create(OpenWeatherMapService.class);
 
         return service;
