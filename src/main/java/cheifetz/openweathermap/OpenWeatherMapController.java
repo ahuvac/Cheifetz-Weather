@@ -32,6 +32,12 @@ public class OpenWeatherMapController {
 
     private final char DEGREE = (char) 186;
 
+    OpenWeatherMapService service;
+
+    public OpenWeatherMapController(OpenWeatherMapService service) {
+        this.service = service;
+    }
+
     @FXML
     public void initialize() {
         ToggleGroup group = new ToggleGroup();
@@ -43,11 +49,9 @@ public class OpenWeatherMapController {
 
     public void doService() {
         String units = far.isSelected() ? "imperial" : "metric";
-        String location = loc.getText()+"";
+        String location = loc.getText();
 
-        OpenWeatherMapServiceFactory factory = new OpenWeatherMapServiceFactory();
-        OpenWeatherMapService service = factory.newInstance();
-
+        //OpenWeatherMapService service = new OpenWeatherMapServiceFactory().newInstance();
         Disposable disposable = service.getWeatherForecast(location, units)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.trampoline())
@@ -76,7 +80,7 @@ public class OpenWeatherMapController {
     }
 
     public void onError(Throwable throwable) {
-        System.out.println("error occurred");
+        throwable.printStackTrace();
     }
 
     public void refresh(ActionEvent actionEvent) {

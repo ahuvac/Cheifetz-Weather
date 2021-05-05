@@ -1,5 +1,6 @@
 package cheifetz.openweathermap;
 
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import javafx.event.ActionEvent;
@@ -7,7 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import java.util.*;
+
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -17,6 +20,7 @@ public class OpenWeatherMapControllerTest {
     private List<Label> tempLabels;
     private List<ImageView> iconLabels;
     private OpenWeatherMapController controller;
+    OpenWeatherMapService service;
 
     @BeforeClass
     public static void beforeClass() {
@@ -33,6 +37,11 @@ public class OpenWeatherMapControllerTest {
         // then
         verify(controller.far).setSelected(true);
         verify(controller.loc).getText();
+    }
+
+    @Test
+    public void onOpenWeathermapForecast(){
+
     }
 
     @Test
@@ -75,13 +84,15 @@ public class OpenWeatherMapControllerTest {
     public void doService() {
         //given
         givenOpenWeatherMapController();
-        OpenWeatherMapServiceFactory factory = mock(OpenWeatherMapServiceFactory.class);
-        OpenWeatherMapService service = factory.newInstance();
+        doReturn("New York").when(controller.loc).getText();
+        doReturn(false).when(controller.far).isSelected();
+        doReturn(Single.never()).when(service).getWeatherForecast("New York", "metric");
 
         //when
         controller.doService();
 
         //then
+        verify(service).getWeatherForecast("New York","metric");
         verify(controller.far).isSelected();
     }
 
@@ -96,11 +107,15 @@ public class OpenWeatherMapControllerTest {
     }
 
     public void givenOpenWeatherMapController() {
-        controller = new OpenWeatherMapController();
+        service = mock(OpenWeatherMapService.class);
+        controller = new OpenWeatherMapController(service);
+
         dayLabels = mock(List.class);
         tempLabels = mock(List.class);
         iconLabels = mock(List.class);
+
         controller.loc = mock(TextField.class);
+
         controller.far = mock(RadioButton.class);
         controller.cel = mock(RadioButton.class);
 
