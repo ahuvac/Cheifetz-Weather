@@ -32,16 +32,17 @@ public class OpenWeatherMapControllerTest {
     public void initialize() {
         // given
         givenOpenWeatherMapController();
+        doReturn("New York").when(controller.loc).getText();
+        doReturn(false).when(controller.far).isSelected();
+        doReturn(Single.never()).when(service).getWeatherForecast("New York", "metric");
+
         // when
         controller.initialize();
         // then
         verify(controller.far).setSelected(true);
         verify(controller.loc).getText();
-    }
-
-    @Test
-    public void onOpenWeathermapForecast(){
-
+        verify(service).getWeatherForecast("New York","metric");
+        verify(controller.far).isSelected();
     }
 
     @Test

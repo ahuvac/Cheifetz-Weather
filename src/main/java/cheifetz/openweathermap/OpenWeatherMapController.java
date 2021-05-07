@@ -59,12 +59,8 @@ public class OpenWeatherMapController {
     }
 
     public void onOpenWeathermapForecast(OpenWeathermapForecast forecast) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                setTexts(forecast);
-            }
-        });
+        Platform.runLater(() -> setTexts(forecast));
+
     }
 
     public void setTexts(OpenWeathermapForecast forecast) {
